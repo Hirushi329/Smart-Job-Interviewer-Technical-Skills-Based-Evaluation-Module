@@ -7,59 +7,68 @@ import pandas as pd
 # Loading the Questions.csv and Tags.csv data sets into Python
 from gtts import gTTS
 
-url1 = r"C:\Users\HP\Documents\Academic Folder\L4S1\Comprehensive Group Project\Stack Overflow Data Set\Questions.csv"
-questionsDataFrame = pd.read_csv(url1, encoding='latin-1')
 
-url2 = r"C:\Users\HP\Documents\Academic Folder\L4S1\Comprehensive Group Project\Stack Overflow Data Set\Tags.csv"
-tagsDataFrame = pd.read_csv(url2, encoding='latin-1')
+output: str = ""
+def question_selection (technicalSkill):
 
-# To print the entire dataframe
-# print(questionsDataFrame.head)
-# To print the dataframe statistics
-# print(questionsDataFrame.shape)
-# To print the first 5 rows
-# print(questionsDataFrame.head(5))
-# To print the last 5 rows
-# print(questionsDataFrame.tail(5))
+    tag: str = technicalSkill
+    url1 = r"C:\Users\HP\Documents\Academic Folder\L4S1\Comprehensive Group Project\Stack Overflow Data Set\Questions.csv"
+    questionsDataFrame = pd.read_csv(url1, encoding='latin-1')
 
-# Merging the two data frames
-mergedDataFrame = (pd.merge(questionsDataFrame, tagsDataFrame, left_on='Id', right_on='Id', how='left'))
+    url2 = r"C:\Users\HP\Documents\Academic Folder\L4S1\Comprehensive Group Project\Stack Overflow Data Set\Tags.csv"
+    tagsDataFrame = pd.read_csv(url2, encoding='latin-1')
 
-# Creating a random sample from the DataFrame
-sampleDataFrame = mergedDataFrame.sample(n=100, replace=True, weights=None, random_state=None, axis=None)
-# print(sampleDataFrame.head(100))
+    # To print the entire dataframe
+    # print(questionsDataFrame.head)
+    # To print the dataframe statistics
+    # print(questionsDataFrame.shape)
+    # To print the first 5 rows
+    # print(questionsDataFrame.head(5))
+    # To print the last 5 rows
+    # print(questionsDataFrame.tail(5))
 
-# Grouping the dataset based on the Tag
-# print(sampleDataFrame.groupby('Tag').size())
-grouped_dataframe = sampleDataFrame.groupby('Tag')
-# for key, item in grouped_dataframe:
-# print(grouped_dataframe.get_group(key), "\n\n")
+    # Merging the two data frames
+    mergedDataFrame = (pd.merge(questionsDataFrame, tagsDataFrame, left_on='Id', right_on='Id', how='left'))
 
-try:
-    selectedDataFrame = grouped_dataframe.get_group('java')
-    print(selectedDataFrame)
-    selectedQuestions = selectedDataFrame.Body
-    print(selectedQuestions)
-    question = str(selectedQuestions)
-    questions_list = []
-    questions_list = question.split("<p>")
-    print(questions_list)
-    selectedQuestion = questions_list[1]
-    modifiedQuestion_list = selectedQuestion.split('.')
-    modifiedQuestion = modifiedQuestion_list[0]
-    print(modifiedQuestion)
+    # Creating a random sample from the DataFrame
+    sampleDataFrame = mergedDataFrame.sample(n=100, replace=True, weights=None, random_state=None, axis=None)
+    # print(sampleDataFrame.head(100))
 
-    # print(selectedQuestion)
+    # Grouping the dataset based on the Tag
+    # print(sampleDataFrame.groupby('Tag').size())
+    grouped_dataframe = sampleDataFrame.groupby('Tag')
+    # for key, item in grouped_dataframe:
+    # print(grouped_dataframe.get_group(key), "\n\n")
 
-except:
-    print("No Java questions in the random sample. Please try again")
+    try:
+        selectedDataFrame = grouped_dataframe.get_group(tag)
+        # selectedDataFrame = grouped_dataframe.get_group('Java')
+        # print(selectedDataFrame)
+        selectedQuestions = selectedDataFrame.Body
+        # print(selectedQuestions)
+        question = str(selectedQuestions)
+        questions_list = []
+        questions_list = question.split("<p>")
+        print(questions_list)
+        selectedQuestion = questions_list[1]
+        modifiedQuestion_list = selectedQuestion.split('.')
+        modifiedQuestion = modifiedQuestion_list[0]
+        output = modifiedQuestion
+        print(output)
 
-# Tesxt to speech conversion
+        # print(selectedQuestion)
 
-try:
-    language = 'en'
-    myobj = gTTS(text=modifiedQuestion, lang=language, slow=False)
-    myobj.save("Question.mp3")
-    os.system("Question.mp3")
-except:
-    print("No question to be asked")
+    except:
+        output = "No Java questions in the random sample. Please try again"
+
+    # Text to speech conversion
+
+    try:
+        language = 'en'
+        myobj = gTTS(text=modifiedQuestion, lang=language, slow=False)
+        myobj.save("Question.mp3")
+        os.system("Question.mp3")
+    except:
+        output = "No question to be asked"
+
+    return output

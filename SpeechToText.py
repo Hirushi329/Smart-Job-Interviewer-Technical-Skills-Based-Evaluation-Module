@@ -2,12 +2,14 @@
 
 import speech_recognition as sr
 
-recognizer = sr.Recognizer()
-harvard = sr.AudioFile('harvard.wav')
-with harvard as source:
-    # print("Say something");
-    audio = recognizer.record(source)
-    recognizer.recognize_google(audio)
+
+def speech_to_text_conversion():
+    recognizer = sr.Recognizer()
+    harvard = sr.AudioFile('harvard.wav')
+    with harvard as source:
+        audio = recognizer.record(source)
+        text = recognizer.recognize_google(audio)
+        return text
     # print("The allocated time is over. Thank you!")
     # try:
     #     print("TEXT: " + recognizer.recognize_google(audio))

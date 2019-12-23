@@ -11,19 +11,6 @@ sampleDataFrame = questionsDataFrame.sample(n=1000, replace=True, weights=None, 
 # print(sampleDataFrame.head(100))
 
 # Grouping the dataset based on the Score
-print(sampleDataFrame.groupby('Score').size())
-grouped_dataframe = sampleDataFrame.groupby('Score')
-
-threshold_score = grouped_dataframe['Score'] = 10
-selectedQuestions = grouped_dataframe['Score' > threshold_score]
-# for key, item in grouped_dataframe:
-#  print(grouped_dataframe.get_group(key), "\n\n")
-
-# try:
-#     score = int('Score')
-# except ValueError as err:
-#     pass
-#
-# selectedQuestions = grouped_dataframe[[score > 10]]
-# for key, item in selectedQuestions:
-#     print(selectedQuestions.get_group(key), "\n\n")
+# print(sampleDataFrame.groupby('Score').size())
+# grouped_dataframe = sampleDataFrame.groupby('Score')
+print(sampleDataFrame[sampleDataFrame['Score']==sampleDataFrame['Score'].max()].Score)

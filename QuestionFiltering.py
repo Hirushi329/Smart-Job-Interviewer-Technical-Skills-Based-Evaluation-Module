@@ -1,17 +1,16 @@
 # This class is responsible for filtering questions according to the technical skills
 import os
 import nltk.tokenize
-
 import pandas as pd
-
-# Loading the Questions.csv and Tags.csv data sets into Python
 from gtts import gTTS
 
-
 output: str = ""
+
 def question_selection (technicalSkill):
 
     tag: str = technicalSkill
+
+    # Loading the Questions.csv and Tags.csv data sets into Python
     url1 = r"C:\Users\HP\Documents\Academic Folder\L4S1\Comprehensive Group Project\Stack Overflow Data Set\Questions.csv"
     questionsDataFrame = pd.read_csv(url1, encoding='latin-1')
 
@@ -42,33 +41,26 @@ def question_selection (technicalSkill):
 
     try:
         selectedDataFrame = grouped_dataframe.get_group(tag)
-        # selectedDataFrame = grouped_dataframe.get_group('Java')
+        # selectedDataFrame = grouped_dataframe.get_group('java')
         # print(selectedDataFrame)
-        selectedQuestions = selectedDataFrame.Body
+        selectedQuestions = selectedDataFrame.Title
         # print(selectedQuestions)
         question = str(selectedQuestions)
         questions_list = []
         questions_list = question.split("<p>")
-        print(questions_list)
+        # print(questions_list)
         selectedQuestion = questions_list[1]
         modifiedQuestion_list = selectedQuestion.split('.')
         modifiedQuestion = modifiedQuestion_list[0]
         output = modifiedQuestion
-        print(output)
+        # print(output)
+        print("Returning the output: " + output)
 
         # print(selectedQuestion)
 
     except:
         output = "No Java questions in the random sample. Please try again"
 
-    # Text to speech conversion
-
-    try:
-        language = 'en'
-        myobj = gTTS(text=modifiedQuestion, lang=language, slow=False)
-        myobj.save("Question.mp3")
-        os.system("Question.mp3")
-    except:
-        output = "No question to be asked"
-
     return output
+
+

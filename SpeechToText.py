@@ -4,14 +4,17 @@ import speech_recognition as sr
 
 
 def speech_to_text_conversion():
+    sound ="OSR_us_000_0011_8k.wav"
     recognizer = sr.Recognizer()
-    harvard = sr.AudioFile('harvard.wav')
-    with harvard as source:
-        audio = recognizer.record(source)
-        text = recognizer.recognize_google(audio)
-        return text
-    # print("The allocated time is over. Thank you!")
-    # try:
-    #     print("TEXT: " + recognizer.recognize_google(audio))
-    # except:
-    #     pass;
+
+    with sr.AudioFile(sound) as source:
+        recognizer.adjust_for_ambient_noise(source)
+        print("Converting audio file to text...")
+        audio = recognizer.listen(source)
+
+        try:
+            text = recognizer.recognize_google(audio)
+            print("The converted text:" + text )
+
+        except Exception as e:
+            print(e)

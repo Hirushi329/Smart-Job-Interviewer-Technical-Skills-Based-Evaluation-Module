@@ -2,7 +2,6 @@
 import nltk
 from TextToSpeech.NewTest import question_selection
 from TextToSpeech.TextToSpeechConversion import text_to_speech_conversion
-from TextToSpeech.Evaluation import evaluation
 
 # retrieving the technical skills from the database
 

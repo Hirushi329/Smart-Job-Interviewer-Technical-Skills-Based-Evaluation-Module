@@ -1,10 +1,7 @@
-# Speech to text conversion
-
 import speech_recognition as sr
 
-
-def speech_to_text_conversion():
-    sound ="OSR_us_000_0011_8k.wav"
+def Speech_To_Text():
+    sound = "OSR_us_000_0011_8k.wav"
     recognizer = sr.Recognizer()
 
     with sr.AudioFile(sound) as source:
@@ -14,7 +11,9 @@ def speech_to_text_conversion():
 
         try:
             text = recognizer.recognize_google(audio)
-            print("The converted text:" + text )
+            print("The converted text:" + text)
+            return text
 
         except Exception as e:
             print(e)
+            return e

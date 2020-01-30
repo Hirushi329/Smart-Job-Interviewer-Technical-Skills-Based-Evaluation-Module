@@ -1,25 +1,5 @@
-import inline as inline
-import pandas
-import numpy
-import matplotlib.pyplot
-import seaborn
-#matplotlib inline
-import pymongo
-
 from urllib.request import urlopen
-
-import soup as soup
 from bs4 import BeautifulSoup
-
-#myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-#mydb = myclient["mydatabase"]
-#mycollection = mydb["keywords"]
-#myquery = {"keyword": "Java"}
-#mydocument = mycollection.find(myquery)
-#value = mydocument.distinct("url")
-#print(value)
-#url = value.split("'")
-#print(url)
 
 url = "https://www.w3schools.com/java/java_encapsulation.asp"
 html = urlopen(url)

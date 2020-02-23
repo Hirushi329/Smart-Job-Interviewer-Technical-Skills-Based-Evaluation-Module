@@ -2,7 +2,6 @@ import nltk
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-from TextToSpeech.TextToSpeechConversion import text_to_speech_conversion
 
 level1Words = ['What is', 'What are', 'Is it', 'Define', 'State', 'List', 'Recall', 'what is', 'what are',
                'is it', 'define', 'state', 'list', 'recall']

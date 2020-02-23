@@ -2,6 +2,8 @@
 import nltk
 from TextToSpeech.NewTest import question_selection
 from TextToSpeech.TextToSpeechConversion import text_to_speech_conversion
+from TextToSpeech.SpeechToText import speech_to_text
+from TextToSpeech.Evaluation import evaluation
 
 # retrieving the technical skills from the database
 
@@ -33,22 +35,25 @@ for i in range(length):
                 if x in sentence:
                     print('This is a memory-recall question')
                     text_to_speech_conversion(sentence)
-                    # answer = text_to_speech_conversion(sentence)
-                    # result = evaluation(answer)
+                    answer = speech_to_text()
+                    result = evaluation(answer)
+                    print('The result for the memoey-recall question is ', result)
 
             for x in level2Words:
                 if x in sentence:
                     print('This is a comprehensive level question')
                     text_to_speech_conversion(sentence)
-                    # answer = text_to_speech_conversion(sentence)
-                    # result = evaluation(answer)
+                    answer = speech_to_text()
+                    result = evaluation(sentence, answer)
+                    print("The result of the comprehension level question is ", result)
 
             for x in level3Words:
                 if x in sentence:
                     print('This is an application level question')
                     text_to_speech_conversion(sentence)
-                    # answer = text_to_speech_conversion(sentence)
-                    # result = evaluation(answer)
+                    answer = speech_to_text()
+                    result = evaluation(answer)
+                    print("The result of the application level question is ", result)
 
             else:
                 print("Can not categorize the given question into defined levels")

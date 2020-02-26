@@ -30,7 +30,7 @@ def question_selection (technicalSkill):
     mergedDataFrame = (pd.merge(questionsDataFrame, tagsDataFrame, left_on='Id', right_on='Id', how='left'))
 
     # Creating a random sample from the DataFrame
-    sampleDataFrame = mergedDataFrame.sample(n=100, replace=True, weights=None, random_state=None, axis=None)
+    sampleDataFrame = mergedDataFrame.sample(n=10000, replace=True, weights=None, random_state=None, axis=None)
     # print(sampleDataFrame.head(100))
 
     # Grouping the dataset based on the Tag

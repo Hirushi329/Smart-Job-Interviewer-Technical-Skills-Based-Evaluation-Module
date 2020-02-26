@@ -39,7 +39,8 @@ for j in search(query, tld="co.in", num=10, stop=1, pause=100):
         # print(words)
         for x in level1Words:
             if x in sentence:
-                print("This is a memory recall question:", sentence)
+                print("--------------This is a memory recall question:", sentence)
+                print(sentence)
                 newSentencelist = sentence.split(x)
                 print("new sentence is", newSentencelist)
                 phrase = newSentencelist[1]
@@ -47,7 +48,9 @@ for j in search(query, tld="co.in", num=10, stop=1, pause=100):
                 print(phrase)
                 print(x)
                 question = x.join(newSentencelist[1])
-                print("The question is:", question)
+                question1 = x+newSentencelist[1]
+                print('----------------------------------------------------------',question1)
+                print("--------------------The question is:", question)
                 # text_to_speech_conversion(question)
         for x in level2Words:
             if x in sentence:

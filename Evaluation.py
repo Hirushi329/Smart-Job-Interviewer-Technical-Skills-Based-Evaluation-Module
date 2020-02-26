@@ -5,7 +5,7 @@ import nltk.tokenize
 from TextToSpeech import SpeechToText
 from nltk.stem import PorterStemmer
 
-def evaluation(sentence, answer2):
+def evaluation(answer1, answer2):
     try:
         # answer1: str = "the poem was there when the sun goes hi what is used to determine the surface of the user is the spelling of the person for that you have to meet at Hasee Toh Phasee evening smoke."
         print(answer2)

@@ -1,15 +1,19 @@
-#rendering the HTML page which has the button
-from flask import render_template, Flask
+from flask import Flask
+from TextToSpeech import Execution
+from flask import render_template
+from flask import request
 
 app = Flask(__name__)
 
-@app.route('/json')
-def json():
-    return render_template('json.html')
+@app.route('/')
+def index():
+    return render_template('json.html', test_str=dynamic_page() if request.args.get("start") is not None else None)
+    # return "Hello world"
+    # return render_template('json.html')
 
-#background process happening without any refreshing
-@app.route('/background_process_test')
-def background_process_test():
-    print ("Hello")
-    return ("nothing")
-app.run()
+def dynamic_page():
+    return Execution.run()
+    print("log error")
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port='8000', debug=True)

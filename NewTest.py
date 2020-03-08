@@ -19,7 +19,7 @@ def question_selection(technical_skill):
     mergedDataFrame = (pd.merge(questionsDataFrame, tagsDataFrame, left_on='Id', right_on='Id', how='left'))
 
 
-    sampleDataFrame = mergedDataFrame.sample(n=100, replace=True, weights=None, random_state=None, axis=None)
+    sampleDataFrame = mergedDataFrame.sample(n=300, replace=True, weights=None, random_state=None, axis=None)
     grouped_dataframe = sampleDataFrame.groupby('Tag')
     selectedDataFrame = grouped_dataframe.get_group(tag)
     selectedQuestions = selectedDataFrame.to_csv(columns=['Title'], sep='\t', index=False)

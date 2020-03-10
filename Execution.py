@@ -11,10 +11,12 @@ from TextToSpeech.Evaluation import evaluation
 
 # retrieving questions from the data set
 def run():
-    url1 = r"C:\Users\HP\Documents\Academic Folder\L4S1\Comprehensive Group Project\Stack Overflow Data Set\Questions.csv"
+    print('Request received. Starting the Interview......')
+    result_list = []
+    url1 = r"C:\Users\HP\Desktop\Comprehensive Group Project\Stack Overflow Data Set\Questions.csv"
     questionsDataFrame = pd.read_csv(url1, encoding='latin-1')
 
-    url2 = r"C:\Users\HP\Documents\Academic Folder\L4S1\Comprehensive Group Project\Stack Overflow Data Set\Answers.csv"
+    url2 = r"C:\Users\HP\Desktop\Comprehensive Group Project\Stack Overflow Data Set\Answers.csv"
     answersDataFrame = pd.read_csv(url2, encoding='latin-1')
 
     mergedDataFrame = (pd.merge(questionsDataFrame, answersDataFrame, left_on='Id', right_on='ParentId', how='left'))
@@ -37,8 +39,8 @@ def run():
                 words = nltk.word_tokenize(sentence)
                 # print(words)
 
-                level1Words = ['What is', 'What are', 'Is it', 'Define', 'State', 'List', 'Recall', 'what is', 'what are',
-                           'is it', 'define', 'state', 'list', 'recall', 'Is there', 'Are there', 'is there', 'are there', 'What', 'what']
+                level1Words = ['What is', 'What are', 'Is it', 'Define', 'Recall', 'what is', 'what are',
+                           'is it', 'define', 'recall', 'Is there', 'Are there', 'is there', 'are there', 'What', 'what']
                 level2Words = ['Why', 'Explain', 'Classify', 'Describe', 'Discuss', 'Identify', 'why', 'explain',
                            'classify', 'describe', 'discuss', 'identify']
                 level3Words = ['How', 'Demonstrate', 'Illustrate', 'Sketch', 'how', 'demonstrate', 'illustrate', 'sketch']
@@ -55,9 +57,9 @@ def run():
                         text_to_speech_conversion(sentence)
                         answer = speech_to_text()
                         result = evaluation(question, answer)
-                        final_result = 'The result for the memoey-recall question is ', result
+                        final_result = 'The result for the memory-recall question is ', result
                         print(final_result)
-                        return final_result
+                        result_list.append(final_result)
 
                 for x in level2Words:
                     if x in sentence:
@@ -73,7 +75,7 @@ def run():
                         result = evaluation(question, answer)
                         final_result = "The result of the comprehension level question is ", result
                         print(final_result)
-                        return final_result
+                        result_list.append(final_result)
 
                 for x in level3Words:
                     if x in sentence:
@@ -89,7 +91,17 @@ def run():
                         result = evaluation(question, answer)
                         final_result = "The result of the application level question is ", result
                         print(final_result)
-                        return final_result
+                        result_list.append(final_result)
 
                 else:
                     print("Can not categorize the given question into defined levels")
+
+    # return('\n'.join('{}: {}'.format(*k) for k in enumerate(result_list)))
+    string = str(result_list)
+    newlist1 = string.split(')')
+    string1 = str(newlist1)
+    newlist2 = string1.split('(')
+    string2 = str(newlist2)
+    newstring1 = ('\n'.join(newlist2))
+    print(newstring1)
+    return newstring1

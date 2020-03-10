@@ -10,10 +10,10 @@ import nltk.tokenize
 def question_selection(technical_skill):
 
     tag = technical_skill
-    url1 = r"C:\Users\HP\Documents\Academic Folder\L4S1\Comprehensive Group Project\Stack Overflow Data Set\Questions.csv"
+    url1 = r"C:\Users\HP\Desktop\Comprehensive Group Project\Stack Overflow Data Set\Questions.csv"
     questionsDataFrame = pd.read_csv(url1, encoding='latin-1')
 
-    url2 = r"C:\Users\HP\Documents\Academic Folder\L4S1\Comprehensive Group Project\Stack Overflow Data Set\Tags.csv"
+    url2 = r"C:\Users\HP\Desktop\Comprehensive Group Project\Stack Overflow Data Set\Tags.csv"
     tagsDataFrame = pd.read_csv(url2, encoding='latin-1')
 
     mergedDataFrame = (pd.merge(questionsDataFrame, tagsDataFrame, left_on='Id', right_on='Id', how='left'))

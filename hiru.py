@@ -1,16 +1,28 @@
-import nltk
+import sounddevice as sd
+import speech_recognition as sr
+import wavio as wavio
+from scipy.io.wavfile import write
+import numpy as np
 
-text = "What is Java? Java is a programming lanuage. What is Python? Python is a programming language. How are you today? What is"
-tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-tokens = tokenizer.tokenize(text)
-print(tokens)
+fs = 4400  # Sample rate
+seconds = 5  # Duration of recording
+print("Start recording the answer.....")
+# myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
+x = np.int(seconds*fs)
+myrecording = sd.rec(x, samplerate=fs, channels=2)
+sd.wait()  # Wait until recording is finished
+write('output.wav', fs, myrecording.astype(np.int8))  # Save as WAV file in 16-bit format
+recognizer = sr.Recognizer()
+sound = "output.wav"
 
-level1Words = ['What is', 'What are', 'Is it', 'Define', 'State', 'List', 'Recall', 'what is', 'what are',
-                   'is it', 'define', 'state', 'list', 'recall']
-level2Words = ['Why', 'Explain', 'Classify', 'Describe', 'Discuss', 'Identify', 'why', 'explain',
-                   'classify', 'describe', 'discuss', 'identify']
-level3Words = ['How', 'Demonstrate', 'Illustrate', 'Sketch', 'how', 'demonstrate', 'illustrate', 'sketch']
+with sr.AudioFile(sound) as source:
+    recognizer.adjust_for_ambient_noise(source)
+    print("Converting the answer to text...")
+    audio = recognizer.listen(source)
 
-for x in level1Words:
-    if x in tokens:
-        print('This is a memory-recall question')
+    try:
+        text = recognizer.recognize_google(audio)
+        print("The converted text:" + text)
+
+    except Exception as e:
+        print('error')

@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('json.html', test_str=dynamic_page() if request.args.get("start") is not None else None)
+    return render_template('new.html', test_str=dynamic_page() if request.args.get("start") is not None else None)
     # return "Hello world"
     # return render_template('json.html')
 
